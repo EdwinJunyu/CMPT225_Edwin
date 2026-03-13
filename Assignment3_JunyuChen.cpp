@@ -17,7 +17,20 @@ private:
     Node<T>* root;
     int size;
 // (recommended) helper for recursive deletion
-    void deleteSubtree(Node<T>* p);
+    void deleteSubtree(Node<T>* p){
+        if (p == nullptr) {
+            return;
+        }
+        for (int i = 0; i < (int)p->children.size(); i++) {
+            deleteSubtree(p->children[i]);
+        }
+        delete p;
+    }
+
+
+public:
+    MyTree();
+    ~MyTree(){};
     bool isEmpty() const{
         return root == nullptr;
     }
@@ -25,10 +38,38 @@ private:
         return this->size;
     }
     Node<T>* getRoot() const{
-        return *root;
+        return root;
     }
+    Node<T>* find(const T& data) const {
+        if (root == nullptr) {
+            return nullptr;
+        }
 
-public:
-    MyTree();
-    ~MyTree();
+        vector<Node<T>*> v;
+        v.push_back(root);
+
+        while (!v.empty()) {
+            Node<T>* cur = v.back();
+            v.pop_back();
+
+            if (cur->data == data) {
+                return cur;
+            }
+
+            for (int i = 0; i < (int)cur->children.size(); i++) {
+                v.push_back(cur->children[i]);
+            }
+        }
+        return nullptr;
+    }
+    bool addRoot(const T& data){
+        if (root != nullptr) {
+            return false;
+        }else {
+            Node<T> *newNode = new Node(data);
+            root = newNode;
+            this->size = 1;
+            return true;
+        }
+    }
 };
