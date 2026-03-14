@@ -27,6 +27,18 @@ private:
         delete p;
     }
 
+    void printPreorderHelper(Node<T>* p) const {
+        if (p == nullptr) {
+            return;
+        }
+
+        cout << p->data << " ";
+
+        for (int i = 0; i < (int)p->children.size(); i++) {
+            printPreorderHelper(p->children[i]);
+        }
+    }
+
 public:
     MyTree();
     ~MyTree(){};
@@ -155,6 +167,11 @@ public:
             cur = cur->parent;
         }
         return cnt;
+    }
+
+    void printPreorder() const {
+        printPreorderHelper(root);
+        cout << endl;
     }
 };
 
