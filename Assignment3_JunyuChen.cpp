@@ -72,4 +72,44 @@ public:
             return true;
         }
     }
+    bool addChild(const T& parentData, const T& childData) {
+        if (root == nullptr) {
+            return false;
+        }
+
+        vector<Node<T>*> nodes;
+        nodes.push_back(root);
+
+        while (!nodes.empty()) {
+            Node<T>* cur = nodes.back();
+            nodes.pop_back();
+            if (cur->data == parentData) {
+                Node<T>* newNode = new Node<T>(childData);
+                newNode->parent = cur;
+                cur->children.push_back(newNode);
+                size++;
+                return true;
+            }
+            for (int i = 0; i < (int)cur->children.size(); i++) {
+                nodes.push_back(cur->children[i]);
+            }
+        }
+        return false;
+    }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
