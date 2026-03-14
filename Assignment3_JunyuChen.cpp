@@ -39,6 +39,18 @@ private:
         }
     }
 
+    void printPostorderHelper(Node<T>* p) const {
+        if (p == nullptr) {
+            return;
+        }
+
+        for (int i = 0; i < (int)p->children.size(); i++) {
+            printPostorderHelper(p->children[i]);
+        }
+
+        cout << p->data << " ";
+    }
+
 public:
     MyTree();
     ~MyTree(){};
@@ -173,6 +185,12 @@ public:
         printPreorderHelper(root);
         cout << endl;
     }
+
+    void printPostorder() const {
+        printPostorderHelper(root);
+        cout << endl;
+    }
+
 };
 
 
