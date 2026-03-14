@@ -137,6 +137,16 @@ public:
         size -= removedCount;
         return true;
     }
+
+    int numChildren(const T& data) const {
+        Node<T>* target = find(data);
+        if (target == nullptr) {
+            return 0;
+        }
+
+        return (int)target->children.size();
+    }
+
 };
 
 
