@@ -191,6 +191,28 @@ public:
         cout << endl;
     }
 
+    void printByLevels() const {
+        if (root == nullptr) {
+            cout << endl;
+            return;
+        }
+
+        vector<Node<T>*> nodes;
+        nodes.push_back(root);
+
+        int index = 0;
+        while (index < (int)nodes.size()) {
+            Node<T>* cur = nodes[index];
+            index++;
+
+            cout << cur->data << " ";
+
+            for (int i = 0; i < (int)cur->children.size(); i++) {
+                nodes.push_back(cur->children[i]);
+            }
+        }
+        cout << endl;
+    }
 };
 
 
