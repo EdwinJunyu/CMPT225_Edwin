@@ -96,6 +96,47 @@ public:
         }
         return false;
     }
+
+    bool removeSubtree(const T& data) {
+        if (root == nullptr) return false;
+
+        Node<T>* target = find(data);
+        if (target == nullptr) return false;
+
+        if (target == root) {
+            deleteSubtree(root);
+            root = nullptr;
+            size = 0;
+            return true;
+        }
+
+        Node<T>* parentNode = target->parent;
+        if (parentNode == nullptr) return false;
+        int removedCount = 0;
+        vector<Node<T>*> nodes;
+        nodes.push_back(target);
+
+        while (!nodes.empty()) {
+            Node<T>* cur = nodes.back();
+            nodes.pop_back();
+            removedCount++;
+
+            for (int i = 0; i < (int)cur->children.size(); i++) {
+                nodes.push_back(cur->children[i]);
+            }
+        }
+
+        for (int i = 0; i < (int)parentNode->children.size(); i++) {
+            if (parentNode->children[i] == target) {
+                parentNode->children.erase(parentNode->children.begin() + i);
+                break;
+            }
+        }
+
+        deleteSubtree(target);
+        size -= removedCount;
+        return true;
+    }
 };
 
 
