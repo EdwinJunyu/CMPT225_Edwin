@@ -27,7 +27,6 @@ private:
         delete p;
     }
 
-
 public:
     MyTree();
     ~MyTree(){};
@@ -147,6 +146,16 @@ public:
         return (int)target->children.size();
     }
 
+    int depth(const T& data) const {
+        Node<T>* cur = find(data);
+        if (cur == nullptr) return -1;
+        int cnt = 0;
+        while(cur != data){
+            cnt++;
+            cur = cur->parent;
+        }
+        return cnt;
+    }
 };
 
 
