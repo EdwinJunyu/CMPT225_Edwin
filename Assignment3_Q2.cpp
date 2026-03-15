@@ -182,7 +182,7 @@ int main() {
     string expr;
 
     cout << "Enter a fully-parenthesized infix expression: ";
-    cin >> expr;
+    getline(cin, expr);
 
     if (!parseExpression(expr, root)) {
         cout << "Error: invalid expression." << endl;
